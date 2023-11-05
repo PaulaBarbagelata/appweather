@@ -8,7 +8,7 @@ function App() {
       <header className="App-header">
       <Weather />
         <footer>
-        This project was coded by Paula Barbagelata, and it is <a className="social-link" href="https://github.com/PaulaBarbagelata/appweather" target="_blank">
+        This project was coded by Paula Barbagelata, and it is <a className="social-link"  href="https://github.com/PaulaBarbagelata/appweather" rel="noreferrer" target="_blank">
 open sourced</a>
         </footer>
        
