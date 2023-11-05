@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import axios from 'axios';
 import './Weather.css';
-import FormattedDate from './FormattedDate.js';
+import Weatherinfo from './Weatherinfo.js';
 
-export default function Weather() {
+export default function Weather(props) {
   const [ready, setReady] = useState(false);
   const [weatherData, setWeatherData] = useState({});
+  const [city, setCity] = useState('Berlin'); // Establece Berlín como ciudad por defecto
 
   function handleResponse(response) {
     console.log(response.data);
@@ -18,7 +19,7 @@ export default function Weather() {
       wind: response.data.wind.speed,
       iconUrl: response.data.condition.icon_url,
       city: response.data.city,
-      time: new Date(response.data.time * 1000), // Aquí obtienes la fecha y hora
+      time: new Date(response.data.time * 1000),
     });
   }
 
@@ -28,16 +29,31 @@ export default function Weather() {
     }
 
     const apiKey = 'c8b24acb0feab485c6f630f018577toc';
-    const city = 'New York'; // Dejamos city sin cambios
     const apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
 
     axios.get(apiUrl).then(handleResponse);
-  }, [ready]);
+  }, [ready, city]);
+
+  function search() {
+    const apiKey = 'c8b24acb0feab485c6f630f018577toc';
+    const apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
+
+    axios.get(apiUrl).then(handleResponse);
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    search();
+  }
+
+  function handleCityChange(event) {
+    setCity(event.target.value);
+  }
 
   if (ready) {
     return (
       <div className="Weather">
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="row">
             <div className="col-9">
               <input
@@ -45,6 +61,8 @@ export default function Weather() {
                 placeholder="Enter a city"
                 className="form-control"
                 autoFocus={true}
+                value={city}
+                onChange={handleCityChange}
               />
             </div>
             <div className="col-3">
@@ -52,37 +70,11 @@ export default function Weather() {
             </div>
           </div>
         </form>
-        <h1>{weatherData.city}</h1>
-        <ul>
-          <li> <FormattedDate date={weatherData.time} /></li> {/* Utilizamos la fecha y hora de weatherData */}
-          <li>{weatherData.description}</li>
-        </ul>
-        <div className="row mt-3">
-          <div className="col-6">
-            <div className="clearfix">
-              <img
-                src={weatherData.iconUrl}
-                alt={weatherData.description}
-                className="float-left"
-              />
-              <div className="float-left">
-                <span className="temperature">
-                  {Math.round(weatherData.temperature)}
-                </span>
-                <span className="Unit">°C</span>
-              </div>
-            </div>
-          </div>
-          <div className="col-6">
-            <ul>
-              <li>Humidity: {weatherData.humidity}%</li>
-              <li>Wind Speed: {weatherData.wind} km/h</li>
-            </ul>
-          </div>
-        </div>
+        <Weatherinfo data={weatherData} />
       </div>
     );
   } else {
-    return null;
+    search();
+    return "loading";
   }
 }
