@@ -1,6 +1,6 @@
 
 .Weather {
-    border: 1px grey solid;
+    border: 1px solid #e66ea2;
     font-family: Arial, Helvetica, sans-serif;
     padding:16px;
     margin: 30px auto;
@@ -16,9 +16,9 @@
 
 
 .Weather h1 {
-    color:blue;
-    color: rgb(135, 135, 135);
-    font-size: 24px;
+    
+    color:#e66ea2;
+    font-size: 28px;
     font-weight: 100;
     line-height: 29px;
     margin:20px 0 0 0;
@@ -64,4 +64,21 @@
     line-height: 1;
     top:-32px;
     margin-left: 5px;
+}
+
+.btn-light:hover {
+    background-color: palevioletred;
+    color:aliceblue;
+}
+
+.btn-light {
+    background-color: pink;
+
+}
+
+.form-control:hover {
+box-shadow:  0 3px 10px rgba(230, 110, 162, 100);
+}
+.form-control{
+border: 1px pink;
 }
