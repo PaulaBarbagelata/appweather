@@ -1,0 +1,17 @@
+.WeatherForecast {
+    text-align: center;
+    
+}
+
+.ForecastDay {
+    color: #be486c;
+}
+
+.ForecastTemperatures{
+    color: #be486c;
+    font-weight: bold;
+}
+
+.ForecastTemp-min {
+    opacity: 0.7;
+}

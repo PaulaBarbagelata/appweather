@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import WeatherForecast from "./WeatherForecast.js"
 import 'bootstrap/dist/css/bootstrap.css';
 import axios from 'axios';
 import './Weather.css';
@@ -7,7 +8,7 @@ import Weatherinfo from './Weatherinfo.js';
 export default function Weather(props) {
   const [ready, setReady] = useState(false);
   const [weatherData, setWeatherData] = useState({});
-  const [city, setCity] = useState('Berlin'); // Establece Berlín como ciudad por defecto
+  const [city, setCity] = useState('Berlin'); 
 
   function handleResponse(response) {
     console.log(response.data);
@@ -20,6 +21,7 @@ export default function Weather(props) {
       iconUrl: response.data.condition.icon_url,
       city: response.data.city,
       time: new Date(response.data.time * 1000),
+      coordinates: response.data.coordinates
     });
   }
 
@@ -59,7 +61,7 @@ export default function Weather(props) {
               <input
                 type="search" 
                 placeholder="Enter a city"
-                className="form-control"
+                className="form-control custom-bg"
                 autoFocus={true}
                 value={city}
                 onChange={handleCityChange}
@@ -71,6 +73,7 @@ export default function Weather(props) {
           </div>
         </form>
         <Weatherinfo data={weatherData} />
+        <WeatherForecast coordinates={weatherData.coordinates}/>
       </div>
     );
   } else {
