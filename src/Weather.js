@@ -8,10 +8,9 @@ import Weatherinfo from './Weatherinfo.js';
 export default function Weather(props) {
   const [ready, setReady] = useState(false);
   const [weatherData, setWeatherData] = useState({});
-  const [city, setCity] = useState('Berlin'); 
+  const [city, setCity] = useState('Madrid'); 
 
   function handleResponse(response) {
-    console.log(response.data);
     setReady(true);
     setWeatherData({
       temperature: response.data.temperature.current,
@@ -33,15 +32,13 @@ export default function Weather(props) {
     const apiKey = 'c8b24acb0feab485c6f630f018577toc';
     const apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
 
-    axios.get(apiUrl).then(handleResponse);
+    axios.get(apiUrl)
+      .then(handleResponse)
+      .catch(error => {
+        console.error("Error fetching current weather data:", error);
+        setReady(true);
+      });
   }, [ready, city]);
-
-  function search() {
-    const apiKey = 'c8b24acb0feab485c6f630f018577toc';
-    const apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
-
-    axios.get(apiUrl).then(handleResponse);
-  }
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -50,6 +47,10 @@ export default function Weather(props) {
 
   function handleCityChange(event) {
     setCity(event.target.value);
+  }
+
+  function search() {
+    setReady(false);
   }
 
   if (ready) {
@@ -73,11 +74,10 @@ export default function Weather(props) {
           </div>
         </form>
         <Weatherinfo data={weatherData} />
-        <WeatherForecast coordinates={weatherData.coordinates}/>
+        {ready && <WeatherForecast coordinates={weatherData.coordinates} />}
       </div>
     );
   } else {
-    search();
     return "loading";
   }
 }
