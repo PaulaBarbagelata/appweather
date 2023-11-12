@@ -19,6 +19,7 @@ export default function Weather(props) {
       wind: response.data.wind.speed,
       iconUrl: response.data.condition.icon_url,
       city: response.data.city,
+      country: response.data.country,
       time: new Date(response.data.time * 1000),
       coordinates: response.data.coordinates
     });
@@ -58,7 +59,7 @@ export default function Weather(props) {
       <div className="Weather">
         <form onSubmit={handleSubmit}>
           <div className="row">
-            <div className="col-9">
+            <div className="col-10">
               <input
                 type="search" 
                 placeholder="Enter a city"
@@ -68,7 +69,7 @@ export default function Weather(props) {
                 onChange={handleCityChange}
               />
             </div>
-            <div className="col-3">
+            <div className="col-2">
               <input type="submit" value="Search" className="btn btn-light custom-bg" />
             </div>
           </div>
