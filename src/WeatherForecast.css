@@ -1,6 +1,6 @@
 .WeatherForecast {
     text-align: center;
-    
+    margin: 30px;
 }
 
 .ForecastDay {
@@ -14,4 +14,11 @@
 
 .ForecastTemp-min {
     opacity: 0.7;
+}
+.DailyForecast{
+    text-align: center;
+}
+.ForecastDay {
+    color: #be486c;
+    font-weight: bold;
 }

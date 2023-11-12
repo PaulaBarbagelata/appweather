@@ -27,6 +27,7 @@
 .Weather ul {
     margin:0;
     padding:0;
+    margin-top: 15px;
 
 }
 .Weather li {
@@ -82,3 +83,4 @@ box-shadow:  0 3px 10px rgba(230, 110, 162, 100);
 .form-control{
 border: 1px pink;
 }
+
